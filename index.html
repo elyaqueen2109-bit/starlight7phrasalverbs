@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phrasal Verbs — Starlight 7 (p.21)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            background: radial-gradient(ellipse at center, #1a1630 0%, #0a0815 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+        }
+
+        .app {
+            max-width: 1050px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(20px);
+            border-radius: 40px;
+            padding: 30px 28px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7);
+            min-height: 600px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px dashed rgba(204, 93, 232, 0.4);
+        }
+        .header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(204, 93, 232, 0.8);
+            margin-bottom: 4px;
+        }
+        .header .sub {
+            font-size: 14px;
+            color: #b5aad0;
+            letter-spacing: 2px;
+        }
+
+        /* TABS */
+        .main-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .tab-btn {
+            padding: 10px 18px;
+            border-radius: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.10);
+            background: rgba(255, 255, 255, 0.04);
+            color: #b5aad0;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.25s;
+            font-family: inherit;
+            cursor: pointer;
+        }
+        .tab-btn:hover { background: rgba(255, 255, 255, 0.10); }
+        .tab-btn.active {
+            background: linear-gradient(135deg, #cc5de8, #862e9c);
+            border-color: #da77f2;
+            color: #fff;
+            box-shadow: 0 8px 30px rgba(204, 93, 232, 0.3);
+        }
+
+        /* CONTENT */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
+
+        /* TASK */
+        .task {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 24px;
+            padding: 24px 28px;
+            border-left: 4px solid #cc5de8;
+            margin-bottom: 20px;
+        }
+        .task h2 {
+            font-size: 19px;
+            color: #da77f2;
+            margin-bottom: 14px;
+            font-weight: 700;
+        }
+        .task p {
+            color: #cbc0d6;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        /* ============ FLASHCARDS TAB ============ */
+        .flash-stage {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        .flash-counter {
+            font-size: 14px;
+            color: #b5aad0;
+            letter-spacing: 1px;
+        }
+        .flash-card {
+            position: relative;
+            width: 100%;
+            max-width: 420px;
+            height: 420px;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            perspective: 1200px;
+        }
+        .flash-card.flipped { transform: rotateY(180deg); }
+        .flash-side {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 24px;
+            border: 2px solid rgba(255,255,255,0.12);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+        .flash-front {
+            background-color: #1a1630;
+            background-image: url("phrasal_verbs.jpg");
+            background-size: 300% 300%;
+            background-repeat: no-repeat;
+        }
+        .flash-back {
+            background: linear-gradient(135deg, #2a1f4a, #1a1630);
+            transform: rotateY(180deg);
+            border-color: rgba(218, 119, 242, 0.6);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 30px;
+            text-align: center;
+        }
+        .flash-back .flash-verb {
+            font-size: 28px;
+            font-weight: 800;
+            color: #da77f2;
+            line-height: 1.25;
+            text-shadow: 0 0 20px rgba(204, 93, 232, 0.5);
+        }
+        .flash-back .flash-mean {
+            font-size: 18px;
+            color: #e6ddf0;
+            line-height: 1.5;
+        }
+        .flash-card:hover .flash-side {
+            box-shadow: 0 16px 50px rgba(204, 93, 232, 0.35);
+        }
+
+        .flash-controls {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        @media (max-width: 520px) {
+            .flash-card { max-width: 320px; height: 320px; }
+            .flash-back .flash-verb { font-size: 22px; }
+            .flash-back .flash-mean { font-size: 15px; }
+        }
+
+        /* WORD BANK */
+        .word-bank {
+            background: rgba(77, 171, 247, 0.08);
+            border: 2px dashed rgba(77, 171, 247, 0.4);
+            border-radius: 16px;
+            padding: 16px 18px;
+            margin-bottom: 20px;
+        }
+        .word-bank h3 {
+            font-size: 14px;
+            color: #74c0fc;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .word-bank-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .word-bank-item {
+            padding: 7px 14px;
+            border-radius: 40px;
+            background: rgba(77, 171, 247, 0.15);
+            border: 1px solid rgba(77, 171, 247, 0.35);
+            color: #d0ebff;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* MATCHING GAME */
+        .match-container { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+        .match-col h3 { font-size: 14px; color: #b5aad0; letter-spacing: 1px; margin-bottom: 10px; text-align: center; text-transform: uppercase; }
+        .match-btn {
+            display: block; width: 100%; padding: 12px 16px; margin-bottom: 8px;
+            border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.04); color: #ece6f0;
+            font-size: 14px; font-weight: 500; text-align: left; transition: 0.2s;
+            font-family: inherit; cursor: pointer; line-height: 1.4;
+        }
+        .match-btn:hover { background: rgba(255, 255, 255, 0.1); transform: translateX(3px); }
+        .match-btn.selected { border-color: #4dabf7; background: rgba(77, 171, 247, 0.25); color: #fff; }
+        .match-btn.matched { border-color: #51cf66; background: rgba(81, 207, 102, 0.15); color: #51cf66; opacity: 0.5; pointer-events: none; }
+        .match-btn.wrong { border-color: #c74a4a; background: rgba(199, 74, 74, 0.25); animation: shake 0.3s; }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+
+        /* EXERCISE ITEMS */
+        .ex-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #d4d0e0;
+            transition: 0.2s;
+        }
+        .ex-item:hover { background: rgba(255, 255, 255, 0.04); }
+        .ex-num { color: #b5aad0; font-weight: 700; margin-right: 6px; }
+        
+        /* INPUTS & SELECTS */
+        .ex-input, select.ex-input {
+            padding: 8px 14px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-size: 15px;
+            font-family: inherit;
+            outline: none;
+            text-align: center;
+            transition: 0.2s;
+            min-width: 140px;
+        }
+        select.ex-input {
+            text-align: left;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 16px;
+            padding-right: 32px;
+        }
+        select.ex-input option {
+            background-color: #1a1630;
+            color: #fff;
+        }
+        .ex-input:focus, select.ex-input:focus {
+            border-color: #da77f2;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 12px rgba(204, 93, 232, 0.3);
+        }
+        .ex-input.correct, select.ex-input.correct { border-color: #51cf66; background: rgba(81, 207, 102, 0.15); color: #51cf66; }
+        .ex-input.wrong, select.ex-input.wrong { border-color: #c74a4a; background: rgba(199, 74, 74, 0.15); color: #ff6b6b; }
+
+        /* CONTROLS */
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 12px 28px;
+            border-radius: 60px;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.25s;
+            font-family: inherit;
+        }
+        .btn:hover { background: rgba(255, 255, 255, 0.12); transform: scale(1.04); }
+        .btn.green {
+            background: linear-gradient(135deg, #51cf66, #2b8a3e);
+            border-color: #8ce99a;
+            box-shadow: 0 8px 30px rgba(81, 207, 102, 0.3);
+        }
+
+        .result {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            min-height: 24px;
+            color: #b5aad0;
+        }
+        .result.good { color: #51cf66; }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 1px;
+        }
+
+        /* ================= MEMORY GAME ================= */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            max-width: 800px;
+            margin: 30px auto;
+            perspective: 1000px;
+        }
+        @media (max-width: 600px) {
+            .memory-grid { gap: 8px; grid-template-columns: repeat(4, 1fr); }
+        }
+
+        .memory-card {
+            position: relative;
+            width: 100%;
+            padding-bottom: 100%;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+        .memory-card.flipped { transform: rotateY(180deg); }
+        .memory-card.matched {
+            transform: rotateY(180deg);
+            pointer-events: none;
+        }
+
+        .card-face {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .card-back {
+            background: rgba(204, 93, 232, 0.2);
+            background-image: repeating-linear-gradient(45deg, rgba(204, 93, 232, 0.1) 0 10px, transparent 10px 20px);
+        }
+        .card-back::after {
+            content: '❓';
+            font-size: 32px;
+            opacity: 0.5;
+        }
+
+        .card-front {
+            background: #1a1630;
+            transform: rotateY(180deg);
+            flex-direction: column;
+            padding: 0;
+        }
+
+        .card-image-wrap {
+            width: 100%; height: 100%;
+            background-image: url("phrasal_verbs.jpg");
+            background-size: 300% 300%;
+            background-repeat: no-repeat;
+            background-position: 0% 0%;
+        }
+
+        .card-word {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-size: 14px;
+            color: #fff;
+            text-align: center;
+            font-weight: 700;
+            padding: 8px;
+            line-height: 1.2;
+            text-transform: uppercase;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .memory-card.matched .card-front {
+            border-color: #51cf66;
+            box-shadow: 0 0 20px rgba(81, 207, 102, 0.4);
+        }
+        .memory-card.matched .card-word {
+            color: #51cf66;
+        }
+        
+        @media (max-width: 720px) {
+            .app { padding: 20px 16px; border-radius: 28px; }
+            .header h1 { font-size: 22px; }
+            .ex-item { flex-direction: column; align-items: flex-start; }
+            .ex-input, select.ex-input { width: 100%; margin-top: 8px; text-align: left; }
+            .match-container { grid-template-columns: 1fr; }
+            .card-word { font-size: 11px; padding: 4px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app">
+    <div class="header">
+        <h1>📝 Phrasal Verbs Trainer</h1>
+        <div class="sub">Starlight 7 • Page 21 • Module 1</div>
+    </div>
+
+    <div class="main-tabs">
+        <button class="tab-btn active" data-tab="tab-flash">🃏 Flashcards</button>
+        <button class="tab-btn" data-tab="tab-game">🎮 Memory Game</button>
+        <button class="tab-btn" data-tab="tab-1">1. Meaning</button>
+        <button class="tab-btn" data-tab="tab-2">2. Practice</button>
+        <button class="tab-btn" data-tab="tab-3">3. Prepositions</button>
+        <button class="tab-btn" data-tab="tab-4">4. Recycling</button>
+    </div>
+
+    <!-- ================= TAB FLASHCARDS ================= -->
+    <div id="tab-flash" class="tab-content active">
+        <div class="task">
+            <h2>🃏 Flashcards</h2>
+            <div class="flash-stage">
+                <div class="flash-counter" id="flashCounter"></div>
+                <div class="flash-card" id="flashCard">
+                    <div class="flash-side flash-front" id="flashFront"></div>
+                    <div class="flash-side flash-back">
+                        <div class="flash-verb" id="flashVerb"></div>
+                        <div class="flash-mean" id="flashMean"></div>
+                    </div>
+                </div>
+                <div class="flash-controls">
+                    <button class="btn" onclick="prevFlashcard()">← Prev</button>
+                    <button class="btn green" onclick="nextFlashcard()">Next →</button>
+                    <button class="btn" onclick="shuffleFlashcards()">🔀 Shuffle</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= TAB GAME: MEMORY ================= -->
+    <div id="tab-game" class="tab-content">
+        <div class="task">
+            <h2>🎮 Memory Game: Find the Pairs</h2>
+            <p>Match the picture with the correct phrasal verb.</p>
+            
+            <div class="memory-grid" id="memoryGrid"></div>
+            
+            <div class="controls">
+                <button class="btn green" onclick="initGame()">🔄 Restart Game</button>
+            </div>
+            <div class="result" id="gameResult"></div>
+        </div>
+    </div>
+
+    <!-- ================= TAB 1: MEANING ================= -->
+    <div id="tab-1" class="tab-content">
+        <div class="task">
+            <h2>1. Match the phrasal verbs with their definitions.</h2>
+            <p>Click a phrasal verb on the left, then click its correct meaning on the right.</p>
+            
+            <div class="match-container">
+                <div class="match-col">
+                    <h3>Phrasal Verb</h3>
+                    <div id="pvLeft"></div>
+                </div>
+                <div class="match-col">
+                    <h3>Meaning</h3>
+                    <div id="pvRight"></div>
+                </div>
+            </div>
+            <div class="result" id="pvResult">Matched: 0 / 7</div>
+        </div>
+    </div>
+
+    <!-- ================= TAB 2: PRACTICE ================= -->
+    <div id="tab-2" class="tab-content">
+        <div class="task">
+            <h2>2. Choose the correct particle(s).</h2>
+            <p>Use the phrasal verbs you just learned.</p>
+            
+            <div class="ex-item">
+                <span class="ex-num">1.</span> The machines at the factory where Dan works often 
+                <select class="ex-input" data-answer="down">
+                    <option value="">...</option>
+                    <option value="down">break down</option>
+                    <option value="up">break up</option>
+                </select>.
+            </div>
+            
+            <div class="ex-item">
+                <span class="ex-num">2.</span> Michael's grandparents brought him 
+                <select class="ex-input" data-answer="up">
+                    <option value="">...</option>
+                    <option value="up">up</option>
+                    <option value="about">about</option>
+                </select> on a farm.
+            </div>
+
+            <div class="ex-item">
+                <span class="ex-num">3.</span> Ann broke 
+                <select class="ex-input" data-answer="down">
+                    <option value="">...</option>
+                    <option value="out">out</option>
+                    <option value="down">down</option>
+                </select> and started crying when she heard she didn't get the job.
+            </div>
+
+            <div class="ex-item">
+                <span class="ex-num">4.</span> The nurse brought him 
+                <select class="ex-input" data-answer="round">
+                    <option value="">...</option>
+                    <option value="about">about</option>
+                    <option value="round">round</option>
+                </select> gently after the operation.
+            </div>
+
+            <div class="ex-item">
+                <span class="ex-num">5.</span> The police are still looking for the prisoner who broke 
+                <select class="ex-input" data-answer="out">
+                    <option value="">...</option>
+                    <option value="down">down</option>
+                    <option value="out">out</option>
+                </select> of prison yesterday.
+            </div>
+
+            <div class="ex-item">
+                <span class="ex-num">6.</span> When Sally dropped her cup, the handle broke 
+                <select class="ex-input" data-answer="off">
+                    <option value="">...</option>
+                    <option value="up">up</option>
+                    <option value="off">off</option>
+                </select>.
+            </div>
+
+            <div class="ex-item">
+                <span class="ex-num">7.</span> Thieves broke 
+                <select class="ex-input" data-answer="into">
+                    <option value="">...</option>
+                    <option value="into">into</option>
+                    <option value="out">out</option>
+                </select> our house while we were at the cinema.
+            </div>
+
+            <div class="ex-item">
+                <span class="ex-num">8.</span> A fire 
+                <select class="ex-input" data-answer="broke out">
+                    <option value="">...</option>
+                    <option value="broke out">broke out</option>
+                    <option value="broke off">broke off</option>
+                </select> in the warehouse last night.
+            </div>
+
+            <div class="ex-item">
+                <span class="ex-num">9.</span> The teacher 
+                <select class="ex-input" data-answer="brought up">
+                    <option value="">...</option>
+                    <option value="brought up">brought up</option>
+                    <option value="brought about">brought about</option>
+                </select> an interesting question during the lesson.
+            </div>
+
+            <div class="ex-item">
+                <span class="ex-num">10.</span> After the accident, the paramedics managed to 
+                <select class="ex-input" data-answer="bring him round">
+                    <option value="">...</option>
+                    <option value="bring him round">bring him round</option>
+                    <option value="bring him up">bring him up</option>
+                </select>.
+            </div>
+
+            <div class="ex-item">
+                <span class="ex-num">11.</span> The two companies decided to 
+                <select class="ex-input" data-answer="break off">
+                    <option value="">...</option>
+                    <option value="break off">break off</option>
+                    <option value="break down">break down</option>
+                </select> negotiations.
+            </div>
+
+            <div class="ex-item">
+                <span class="ex-num">12.</span> His car 
+                <select class="ex-input" data-answer="broke down">
+                    <option value="">...</option>
+                    <option value="broke down">broke down</option>
+                    <option value="broke out">broke out</option>
+                </select> on the motorway, so he had to call a tow truck.
+            </div>
+
+            <div class="ex-item">
+                <span class="ex-num">13.</span> The new manager wants to 
+                <select class="ex-input" data-answer="bring about">
+                    <option value="">...</option>
+                    <option value="bring about">bring about</option>
+                    <option value="bring up">bring up</option>
+                </select> some changes in the department.
+            </div>
+
+            <div class="ex-item">
+                <span class="ex-num">14.</span> Their relationship didn't last — they 
+                <select class="ex-input" data-answer="broke up">
+                    <option value="">...</option>
+                    <option value="broke up">broke up</option>
+                    <option value="broke in">broke in</option>
+                </select> last summer.
+            </div>
+
+            <div class="ex-item">
+                <span class="ex-num">15.</span> Somebody 
+                <select class="ex-input" data-answer="broke in">
+                    <option value="">...</option>
+                    <option value="broke in">broke in</option>
+                    <option value="broke out">broke out</option>
+                </select> while we were away and stole the TV.
+            </div>
+
+            <div class="ex-item">
+                <span class="ex-num">16.</span> Don't 
+                <select class="ex-input" data-answer="break off">
+                    <option value="">...</option>
+                    <option value="break off">break off</option>
+                    <option value="break in">break in</option>
+                </select> a piece of that chocolate for me, please.
+            </div>
+
+            <div class="ex-item">
+                <span class="ex-num">17.</span> She was 
+                <select class="ex-input" data-answer="brought up">
+                    <option value="">...</option>
+                    <option value="brought up">brought up</option>
+                    <option value="brought round">brought round</option>
+                </select> by her grandmother in a small village.
+            </div>
+
+            <div class="ex-item">
+                <span class="ex-num">18.</span> The doctor gave him some medicine and he soon 
+                <select class="ex-input" data-answer="came round">
+                    <option value="">...</option>
+                    <option value="came round">came round</option>
+                    <option value="came up">came up</option>
+                </select>.
+            </div>
+
+            <div class="controls">
+                <button class="btn green" onclick="checkSelects('tab-2', 'res2')">✅ Check Answers</button>
+                <button class="btn" onclick="resetSelects('tab-2', 'res2')">⟳ Reset</button>
+            </div>
+            <div class="result" id="res2"></div>
+        </div>
+    </div>
+
+    <!-- ================= TAB 3: PREPOSITIONS ================= -->
+    <div id="tab-3" class="tab-content">
+        <div class="task">
+            <h2>3. Choose the correct preposition.</h2>
+            <div class="ex-item">
+                <span class="ex-num">1.</span> I don't mind working on my own, but I prefer working as part 
+                <select class="ex-input" data-answer="of">
+                    <option value="">...</option>
+                    <option value="in">in</option>
+                    <option value="of">of</option>
+                </select> a team.
+            </div>
+            <div class="ex-item">
+                <span class="ex-num">2.</span> Students often get a job to help pay 
+                <select class="ex-input" data-answer="for">
+                    <option value="">...</option>
+                    <option value="about">about</option>
+                    <option value="for">for</option>
+                </select> university.
+            </div>
+            <div class="ex-item">
+                <span class="ex-num">3.</span> Harry wants to apply 
+                <select class="ex-input" data-answer="for">
+                    <option value="">...</option>
+                    <option value="to">to</option>
+                    <option value="for">for</option>
+                </select> a job as a lifeguard.
+            </div>
+            <div class="ex-item">
+                <span class="ex-num">4.</span> Smokejumpers jump 
+                <select class="ex-input" data-answer="out of">
+                    <option value="">...</option>
+                    <option value="out of">out of</option>
+                    <option value="for">for</option>
+                </select> aeroplanes into burning forests.
+            </div>
+
+            <div class="ex-item">
+                <span class="ex-num">5.</span> She is very good 
+                <select class="ex-input" data-answer="at">
+                    <option value="">...</option>
+                    <option value="at">at</option>
+                    <option value="in">in</option>
+                </select> solving difficult problems.
+            </div>
+
+            <div class="ex-item">
+                <span class="ex-num">6.</span> We are looking forward 
+                <select class="ex-input" data-answer="to">
+                    <option value="">...</option>
+                    <option value="to">to</option>
+                    <option value="for">for</option>
+                </select> seeing you again.
+            </div>
+
+            <div class="ex-item">
+                <span class="ex-num">7.</span> He is responsible 
+                <select class="ex-input" data-answer="for">
+                    <option value="">...</option>
+                    <option value="for">for</option>
+                    <option value="of">of</option>
+                </select> the whole project.
+            </div>
+
+            <div class="ex-item">
+                <span class="ex-num">8.</span> They arrived 
+                <select class="ex-input" data-answer="at">
+                    <option value="">...</option>
+                    <option value="at">at</option>
+                    <option value="in">in</option>
+                </select> the airport on time.
+            </div>
+
+            <div class="ex-item">
+                <span class="ex-num">9.</span> She is interested 
+                <select class="ex-input" data-answer="in">
+                    <option value="">...</option>
+                    <option value="in">in</option>
+                    <option value="on">on</option>
+                </select> learning foreign languages.
+            </div>
+
+            <div class="ex-item">
+                <span class="ex-num">10.</span> This book belongs 
+                <select class="ex-input" data-answer="to">
+                    <option value="">...</option>
+                    <option value="to">to</option>
+                    <option value="for">for</option>
+                </select> my sister.
+            </div>
+
+            <h2 style="margin-top:24px;">4. Word Formation (Person Nouns)</h2>
+            <p>Fill in the correct word derived from the word in brackets.</p>
+
+            <div class="ex-item">
+                <span class="ex-num">1.</span> It takes a great 
+                <input type="text" class="ex-input" data-answer="director" placeholder="(DIRECT)"> to make a great film.
+            </div>
+            <div class="ex-item">
+                <span class="ex-num">2.</span> A 
+                <input type="text" class="ex-input" data-answer="tourist" placeholder="(TOUR)"> can learn a lot about the country they stay in.
+            </div>
+            <div class="ex-item">
+                <span class="ex-num">3.</span> An 
+                <input type="text" class="ex-input" data-answer="interviewer" placeholder="(INTERVIEW)"> should always be pleasant, polite and well-prepared.
+            </div>
+            <div class="ex-item">
+                <span class="ex-num">4.</span> The flight 
+                <input type="text" class="ex-input" data-answer="attendant" placeholder="(ATTEND)"> asked everyone to stay in their seats.
+            </div>
+            <div class="ex-item">
+                <span class="ex-num">5.</span> Sue is paying an interior 
+                <input type="text" class="ex-input" data-answer="designer" placeholder="(DESIGN)"> to decorate her new flat.
+            </div>
+            <div class="ex-item">
+                <span class="ex-num">6.</span> The 
+                <input type="text" class="ex-input" data-answer="electrician" placeholder="(ELECTRIC)"> is fixing the light in the dining room.
+            </div>
+            <div class="controls">
+                <button class="btn green" onclick="checkMixed('tab-3', 'res3')">✅ Check Answers</button>
+                <button class="btn" onclick="resetMixed('tab-3', 'res3')">⟳ Reset</button>
+            </div>
+            <div class="result" id="res3"></div>
+        </div>
+    </div>
+
+    <!-- ================= TAB 4: RECYCLING ================= -->
+    <div id="tab-4" class="tab-content">
+        <div class="task">
+            <h2>5. Recycling in Context</h2>
+            <p>Complete the sentences using the phrasal verbs from the Word Bank.</p>
+
+            <div class="word-bank">
+                <h3>Word Bank</h3>
+                <div class="word-bank-list" id="wordBank"></div>
+            </div>
+
+            <div class="ex-item">
+                <span class="ex-num">1.</span> If you want to start a new hobby like UFO hunting, you need to 
+                <input type="text" class="ex-input" data-answer="take up" placeholder="..."> (start doing) a lot of new equipment.
+            </div>
+            <div class="ex-item">
+                <span class="ex-num">2.</span> After months of training, Sara decided to 
+                <input type="text" class="ex-input" data-answer="apply for" placeholder="..."> (make a formal request) a job as a lifeguard at the local pool.
+            </div>
+            <div class="ex-item">
+                <span class="ex-num">3.</span> We were on our way to the mountains when our car 
+                <input type="text" class="ex-input" data-answer="broke down" placeholder="..."> (stopped working) in the middle of nowhere.
+            </div>
+            <div class="ex-item">
+                <span class="ex-num">4.</span> She had to 
+                <input type="text" class="ex-input" data-answer="give up" placeholder="..."> (stop doing) eating fast food because she wanted to be fit for the marathon.
+            </div>
+            <div class="ex-item">
+                <span class="ex-num">5.</span> Nick Porter's grandparents 
+                <input type="text" class="ex-input" data-answer="brought up" placeholder="..."> (raised) him in a small town near the mountains.
+            </div>
+            <div class="ex-item">
+                <span class="ex-num">6.</span> We had to 
+                <input type="text" class="ex-input" data-answer="put off" placeholder="..."> (postpone) our trip to the Appalachian Trail because of the bad weather.
+            </div>
+            <div class="ex-item">
+                <span class="ex-num">7.</span> The team of volunteers 
+                <input type="text" class="ex-input" data-answer="came up with" placeholder="..."> (suggested) a brilliant idea for the school charity project.
+            </div>
+            <div class="ex-item">
+                <span class="ex-num">8.</span> I am really 
+                <input type="text" class="ex-input" data-answer="looking forward to" placeholder="..."> (be excited about) my summer holidays at the youth hostel.
+            </div>
+
+            <div class="controls">
+                <button class="btn green" onclick="checkInputs('tab-4', 'res4')">✅ Check Answers</button>
+                <button class="btn" onclick="resetInputs('tab-4', 'res4')">⟳ Reset</button>
+            </div>
+            <div class="result" id="res4"></div>
+        </div>
+    </div>
+
+    <div class="footer-note">✧ Starlight 7 • Language in Use • Page 21 ✧</div>
+</div>
+
+<script>
+    // ================= TAB SWITCHING =================
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById(btn.dataset.tab).classList.add('active');
+        });
+    });
+
+    // ================= SOUNDS =================
+    let audioCtx = null;
+    function playSound(type) {
+        try {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            if (type === 'click') { osc.frequency.value = 600; gain.gain.value = 0.05; osc.start(); osc.stop(audioCtx.currentTime + 0.08); }
+            if (type === 'success') { 
+                osc.frequency.value = 800; gain.gain.value = 0.08; osc.start(); 
+                setTimeout(() => { osc.frequency.value = 1000; }, 100);
+                osc.stop(audioCtx.currentTime + 0.25); 
+            }
+            if (type === 'error') { osc.frequency.value = 300; gain.gain.value = 0.08; osc.start(); osc.stop(audioCtx.currentTime + 0.15); }
+        } catch(e) {}
+    }
+
+    // ================= TEXT TO SPEECH =================
+    function speak(text) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(text);
+            u.lang = 'en-GB';
+            u.rate = 0.9;
+            window.speechSynthesis.speak(u);
+        }
+    }
+
+    // ================= VOCAB (общий список) =================
+    const vocab = [
+        { word: 'break down (stop working)',  say: 'break down',              ru: 'сломаться, перестать работать',    x: 0, y: 0 },
+        { word: 'break down (lose control)',  say: 'break down',              ru: 'потерять самообладание, расплакаться', x: 1, y: 0 },
+        { word: 'break in',                   say: 'break in',                ru: 'вломиться, ворваться',              x: 2, y: 0 },
+        { word: 'break out',                  say: 'break out',               ru: 'сбежать; вспыхнуть (о войне, пожаре)', x: 0, y: 1 },
+        { word: 'break off',                  say: 'break off',               ru: 'отломить; прервать (переговоры)',    x: 1, y: 1 },
+        { word: 'break up',                   say: 'break up',                ru: 'расстаться; разойтись',             x: 2, y: 1 },
+        { word: 'bring about',                say: 'bring about',             ru: 'вызывать, приводить к чему-либо',   x: 0, y: 2 },
+        { word: 'bring sb round',             say: 'bring somebody round',    ru: 'привести в сознание; переубедить',   x: 1, y: 2 },
+        { word: 'bring up',                   say: 'bring up',                ru: 'воспитывать (ребёнка)',             x: 2, y: 2 }
+    ];
+
+    // ================= WORD BANK =================
+    const recyclingWords = ['take up', 'apply for', 'broke down', 'give up', 'brought up', 'put off', 'came up with', 'looking forward to'];
+
+    function renderWordBank() {
+        const bank = document.getElementById('wordBank');
+        bank.innerHTML = '';
+        const shuffled = [...recyclingWords].sort(() => Math.random() - 0.5);
+        shuffled.forEach(w => {
+            const chip = document.createElement('div');
+            chip.className = 'word-bank-item';
+            chip.textContent = w;
+            bank.appendChild(chip);
+        });
+    }
+
+    // ================= FLASHCARDS (одна карточка за раз) =================
+    let flashOrder = [];
+    let flashIndex = 0;
+    let flashFlipped = false;
+
+    function shuffleFlashcards() {
+        flashOrder = [...vocab].sort(() => Math.random() - 0.5);
+        flashIndex = 0;
+        renderFlashcard();
+    }
+
+    function renderFlashcard() {
+        const card = document.getElementById('flashCard');
+        card.classList.remove('flipped');
+        flashFlipped = false;
+
+        const item = flashOrder[flashIndex];
+        if (!item) return;
+
+        const posX = item.x * 50;
+        const posY = item.y * 50;
+        document.getElementById('flashFront').style.backgroundPosition = `${posX}% ${posY}%`;
+        document.getElementById('flashVerb').textContent = item.word;
+        document.getElementById('flashMean').textContent = item.ru;
+        document.getElementById('flashCounter').textContent = `Card ${flashIndex + 1} of ${flashOrder.length}`;
+    }
+
+    function nextFlashcard() {
+        flashIndex = (flashIndex + 1) % flashOrder.length;
+        renderFlashcard();
+    }
+
+    function prevFlashcard() {
+        flashIndex = (flashIndex - 1 + flashOrder.length) % flashOrder.length;
+        renderFlashcard();
+    }
+
+    function setupFlashcard() {
+        const card = document.getElementById('flashCard');
+        card.addEventListener('click', () => {
+            const item = flashOrder[flashIndex];
+            if (!item) return;
+
+            card.classList.toggle('flipped');
+            flashFlipped = card.classList.contains('flipped');
+
+            if (flashFlipped) {
+                playSound('click');
+                speak(item.say);
+            }
+        });
+    }
+
+    // ================= MEMORY GAME LOGIC =================
+    let gamePairs = [];
+    let cardsData = [];
+    let firstCard = null;
+    let secondCard = null;
+    let lockBoard = false;
+    let matchedPairs = 0;
+
+    function initGame() {
+        gamePairs = [...vocab].sort(() => Math.random() - 0.5).slice(0, 8);
+        
+        cardsData = [];
+        gamePairs.forEach((item, index) => {
+            cardsData.push({ id: index, type: 'image', data: item });
+            cardsData.push({ id: index, type: 'word', data: item });
+        });
+        
+        cardsData.sort(() => Math.random() - 0.5);
+        
+        firstCard = null;
+        secondCard = null;
+        lockBoard = false;
+        matchedPairs = 0;
+        
+        document.getElementById('gameResult').textContent = '';
+        renderBoard();
+    }
+
+    function renderBoard() {
+        const grid = document.getElementById('memoryGrid');
+        grid.innerHTML = '';
+        
+        cardsData.forEach((card, index) => {
+            const cardEl = document.createElement('div');
+            cardEl.className = 'memory-card';
+            cardEl.dataset.index = index;
+            
+            if (card.type === 'image') {
+                const posX = card.data.x * 50;
+                const posY = card.data.y * 50;
+                cardEl.innerHTML = `
+                    <div class="card-face card-back"></div>
+                    <div class="card-face card-front">
+                        <div class="card-image-wrap" style="background-position: ${posX}% ${posY}%;"></div>
+                    </div>
+                `;
+            } else {
+                cardEl.innerHTML = `
+                    <div class="card-face card-back"></div>
+                    <div class="card-face card-front">
+                        <div class="card-word">${card.data.word}</div>
+                    </div>
+                `;
+            }
+            
+            cardEl.addEventListener('click', () => flipCard(cardEl, card));
+            grid.appendChild(cardEl);
+        });
+    }
+
+    function flipCard(cardEl, card) {
+        if (lockBoard) return;
+        if (cardEl.classList.contains('flipped') || cardEl.classList.contains('matched')) return;
+        
+        playSound('click');
+        cardEl.classList.add('flipped');
+        
+        if (!firstCard) {
+            firstCard = { el: cardEl, data: card };
+        } else {
+            secondCard = { el: cardEl, data: card };
+            checkMatch();
+        }
+    }
+
+    function checkMatch() {
+        const isMatch = (firstCard.data.id === secondCard.data.id);
+        
+        if (isMatch) {
+            firstCard.el.classList.add('matched');
+            secondCard.el.classList.add('matched');
+            
+            speak(firstCard.data.data.say);
+            playSound('success');
+            
+            matchedPairs++;
+            resetBoard();
+            
+            if (matchedPairs === gamePairs.length) {
+                document.getElementById('gameResult').textContent = "🎉 Perfect! All pairs found!";
+                document.getElementById('gameResult').className = "result good";
+            }
+        } else {
+            lockBoard = true;
+            playSound('error');
+            setTimeout(() => {
+                firstCard.el.classList.remove('flipped');
+                secondCard.el.classList.remove('flipped');
+                resetBoard();
+            }, 1200);
+        }
+    }
+
+    function resetBoard() {
+        firstCard = null;
+        secondCard = null;
+        lockBoard = false;
+    }
+
+    // ================= MATCHING (TAB 1) =================
+    const pvData = [
+        { id: 'bd', verb: 'break down', def: '1) stop working; 2) lose control of feelings' },
+        { id: 'bin', verb: 'break in', def: 'enter by force (+ break into a building)' },
+        { id: 'bout', verb: 'break out', def: '1) begin suddenly (storm, war); 2) escape' },
+        { id: 'boff', verb: 'break off', def: 'break a piece from something' },
+        { id: 'babout', verb: 'bring about', def: 'cause to happen' },
+        { id: 'bround', verb: 'bring sb round', def: '1) regain consciousness; 2) persuade' },
+        { id: 'bup', verb: 'bring up', def: 'raise a child' }
+    ];
+
+    let pvSelectedLeft = null;
+    let pvSelectedRight = null;
+    let pvMatched = 0;
+
+    function initPVMatch() {
+        const left = document.getElementById('pvLeft');
+        const right = document.getElementById('pvRight');
+        left.innerHTML = ''; right.innerHTML = '';
+        
+        pvData.forEach(item => {
+            const btn = document.createElement('button');
+            btn.className = 'match-btn';
+            btn.textContent = item.verb;
+            btn.onclick = () => selectPV(btn, 'left');
+            left.appendChild(btn);
+        });
+
+        const shuffledDefs = [...pvData].sort(() => Math.random() - 0.5);
+        shuffledDefs.forEach(item => {
+            const btn = document.createElement('button');
+            btn.className = 'match-btn';
+            btn.textContent = item.def;
+            btn.onclick = () => selectPV(btn, 'right');
+            right.appendChild(btn);
+        });
+    }
+
+    function selectPV(btn, side) {
+        if (btn.classList.contains('matched')) return;
+        
+        if (side === 'left') {
+            if (pvSelectedLeft) pvSelectedLeft.classList.remove('selected');
+            if (pvSelectedLeft === btn) { pvSelectedLeft = null; return; }
+            pvSelectedLeft = btn;
+        } else {
+            if (pvSelectedRight) pvSelectedRight.classList.remove('selected');
+            if (pvSelectedRight === btn) { pvSelectedRight = null; return; }
+            pvSelectedRight = btn;
+        }
+        btn.classList.add('selected');
+        playSound('click');
+
+        if (pvSelectedLeft && pvSelectedRight) {
+            const leftVerb = pvSelectedLeft.textContent;
+            const rightDef = pvSelectedRight.textContent;
+            const isMatch = pvData.some(p => p.verb === leftVerb && p.def === rightDef);
+
+            if (isMatch) {
+                pvSelectedLeft.classList.add('matched', 'correct');
+                pvSelectedRight.classList.add('matched', 'correct');
+                pvSelectedLeft.classList.remove('selected');
+                pvSelectedRight.classList.remove('selected');
+                pvMatched++;
+                document.getElementById('pvResult').textContent = `Matched: ${pvMatched} / ${pvData.length}`;
+                playSound('success');
+                if (pvMatched === pvData.length) {
+                    document.getElementById('pvResult').textContent = "🎉 Perfect! All matched!";
+                    document.getElementById('pvResult').className = "result good";
+                }
+            } else {
+                pvSelectedLeft.classList.add('wrong');
+                pvSelectedRight.classList.add('wrong');
+                setTimeout(() => {
+                    pvSelectedLeft.classList.remove('wrong', 'selected');
+                    pvSelectedRight.classList.remove('wrong', 'selected');
+                    pvSelectedLeft = null;
+                    pvSelectedRight = null;
+                }, 500);
+                playSound('error');
+            }
+            pvSelectedLeft = null;
+            pvSelectedRight = null;
+        }
+    }
+
+    // ================= CHECK EXERCISES =================
+    function checkSelects(tabId, resId) {
+        const selects = document.querySelectorAll(`#${tabId} select.ex-input`);
+        let correct = 0;
+        selects.forEach(sel => {
+            const userAns = sel.value.toLowerCase();
+            const correctAns = sel.dataset.answer.toLowerCase();
+            sel.classList.remove('correct', 'wrong');
+            if (!userAns) return;
+            if (userAns === correctAns) { sel.classList.add('correct'); correct++; }
+            else { sel.classList.add('wrong'); }
+        });
+        const res = document.getElementById(resId);
+        res.textContent = `✅ ${correct} / ${selects.length}`;
+        res.className = correct === selects.length ? 'result good' : 'result';
+        playSound(correct === selects.length ? 'success' : 'error');
+    }
+
+    function resetSelects(tabId, resId) {
+        document.querySelectorAll(`#${tabId} select`).forEach(s => { s.value = ''; s.classList.remove('correct', 'wrong'); });
+        document.getElementById(resId).textContent = '';
+    }
+
+    function checkInputs(tabId, resId) {
+        const inputs = document.querySelectorAll(`#${tabId} input.ex-input`);
+        let correct = 0;
+        inputs.forEach(inp => {
+            const userAns = inp.value.trim().toLowerCase();
+            const correctAns = inp.dataset.answer.toLowerCase();
+            inp.classList.remove('correct', 'wrong');
+            if (!userAns) return;
+            if (userAns === correctAns) { inp.classList.add('correct'); correct++; }
+            else { inp.classList.add('wrong'); }
+        });
+        const res = document.getElementById(resId);
+        res.textContent = `✅ ${correct} / ${inputs.length}`;
+        res.className = correct === inputs.length ? 'result good' : 'result';
+        playSound(correct === inputs.length ? 'success' : 'error');
+    }
+
+    function resetInputs(tabId, resId) {
+        document.querySelectorAll(`#${tabId} input`).forEach(inp => { inp.value = ''; inp.classList.remove('correct', 'wrong'); });
+        document.getElementById(resId).textContent = '';
+        renderWordBank();
+    }
+
+    function checkMixed(tabId, resId) {
+        const selects = document.querySelectorAll(`#${tabId} select.ex-input`);
+        const inputs = document.querySelectorAll(`#${tabId} input.ex-input`);
+        let correct = 0;
+        
+        selects.forEach(sel => {
+            const userAns = sel.value.toLowerCase();
+            const correctAns = sel.dataset.answer.toLowerCase();
+            sel.classList.remove('correct', 'wrong');
+            if (!userAns) return;
+            if (userAns === correctAns) { sel.classList.add('correct'); correct++; }
+            else { sel.classList.add('wrong'); }
+        });
+        inputs.forEach(inp => {
+            const userAns = inp.value.trim().toLowerCase();
+            const correctAns = inp.dataset.answer.toLowerCase();
+            inp.classList.remove('correct', 'wrong');
+            if (!userAns) return;
+            if (userAns === correctAns) { inp.classList.add('correct'); correct++; }
+            else { inp.classList.add('wrong'); }
+        });
+
+        const total = selects.length + inputs.length;
+        const res = document.getElementById(resId);
+        res.textContent = `✅ ${correct} / ${total}`;
+        res.className = correct === total ? 'result good' : 'result';
+        playSound(correct === total ? 'success' : 'error');
+    }
+
+    function resetMixed(tabId, resId) {
+        document.querySelectorAll(`#${tabId} select, #${tabId} input`).forEach(el => { el.value = ''; el.classList.remove('correct', 'wrong'); });
+        document.getElementById(resId).textContent = '';
+    }
+
+    // ================= INIT =================
+    setupFlashcard();
+    shuffleFlashcards();
+    initPVMatch();
+    initGame();
+    renderWordBank();
+
+</script>
+
+</body>
+</html>
